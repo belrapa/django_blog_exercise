@@ -3,14 +3,23 @@ from django.views import generic
 
 from .forms import CommentForm
 from .models import Post
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by("-created_on")
     template_name = "index.html"
     paginate_by = 3
 
+class PostListUser(LoginRequiredMixin, generic.ListView):
+    '''
+    Lista para mostrar los posts de un usuario
+    '''
+    def get_queryset(self):
+        user = self.request.user
+        return Post.objects.filter(author=user).order_by("-created_on")
 
+    template_name = "listado_usuario.html"
+    paginate_by = 3
 # class PostDetail(generic.DetailView):
 #     model = Post
 #     template_name = 'post_detail.html'
