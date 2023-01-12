@@ -35,7 +35,7 @@
                     <ul class="navbar-nav ml-auto">
 
                         <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">Mis Posts</a>
+                            <a class="nav-link text-black font-weight-bold" href="{% url 'mis-posts' %}">Mis Posts</a>
                         </li>
 
                         <li class="nav-item text-black">
@@ -50,10 +50,10 @@
 
                         
                         <li class="nav-item text-black">
-                            {% if user.is_authenticated %}
-                            <a class="nav-link text-black font-weight-bold" href="#">Logout</a>
+                            {% if not user.is_authenticated %}
+                            <a class="nav-link text-black font-weight-bold" href="{% url 'login' %}">Login</a>
                             {% else %}
-                            <a class="nav-link text-black font-weight-bold" href="#">Login</a>                            
+                            <a class="nav-link text-black font-weight-bold" href="{% url 'logout' %}">Logout</a>
                             {% endif %}
                         </li>
                     </ul>
